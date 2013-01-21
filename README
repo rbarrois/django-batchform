@@ -4,7 +4,9 @@ django-batchform
 This project aims to provide a simple yet powerful way to fill
 a batch of forms from a single uploaded file (CSV, xlsx, ...).
 
-It uses Django class-based generic views to that effect, allowing for a very simple configuration::
+It uses Django class-based generic views to that effect, allowing for a very simple configuration:
+
+.. code-block:: python
 
     from django import forms as django_forms
     from batchform import forms, views
