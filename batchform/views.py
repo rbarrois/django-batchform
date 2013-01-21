@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# This code is distributed under the two-clause BSD license.
+# Copyright (c) 2013 Raphaël Barrois
 
 
 from django import forms as django_forms
@@ -10,7 +12,7 @@ from . import forms
 
 
 class BaseUploadView(generic.FormView):
-    template_name = 'batchupload/form.html'
+    template_name = 'batchform/form.html'
     success_url = '/'
 
     STEP_UPLOAD = 'upload'
