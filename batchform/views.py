@@ -12,7 +12,8 @@ from . import forms
 
 
 class BaseUploadView(generic.FormView):
-    template_name = 'batchform/form.html'
+    upload_template_name = 'batchform/upload_form.html'
+    lines_template_name = 'batchform/lines_form.html'
     success_url = '/'
 
     STEP_UPLOAD = 'upload'
@@ -69,6 +70,12 @@ class BaseUploadView(generic.FormView):
         if self.current_step == self.STEP_LINES:
             kwargs['form'] = self.inner_form_class
         return kwargs
+
+    def get_template_names(self):
+        if self.current_step == self.STEP_UPLOAD:
+            return self.upload_template_name
+        else:
+            return self.lines_template_name
 
     # Upload
     # ======

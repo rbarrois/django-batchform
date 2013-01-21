@@ -1,0 +1,37 @@
+<form method="post" action="">
+    {# Hidden data #}
+    <input type="hidden" name="global_step" value="{{ global_step }}" />
+    {% csrf_token %}
+    {{ form.management_form }}
+    {# End hidden data #}
+
+    {% if form.non_form_errors %}
+        <span class="error">{{ form.non_form_errors }}</span>
+    {% endif %}
+
+    <table>
+        <tr>
+            {% for field in form.form.visible_fields %}
+                <th>{{ field.label_tag }}</th>
+            {% endfor %}
+
+            {% if form.can_delete %}
+                <td>Delete?</td>
+            {% endif %}
+        </tr>
+
+        {% for inner_form in form %}
+        <tr>
+            {% for field in inner_form.visible_fields %}
+            <td>{{ field }}{{ field.errors }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <td colspan="{{ form.form.visible_fields|length }}">
+                <input type="submit" value="Insert" />
+            </td>
+        </tr>
+    </table>
+</form>
