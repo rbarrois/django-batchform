@@ -1,7 +1,7 @@
 include LICENSE README
 
 # Package data
-recursive-include batchform *.html
+recursive-include batchform *.html *.css *.js
 
 # Companion data
 recursive-include dev *.py
