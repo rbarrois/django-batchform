@@ -4,7 +4,7 @@
 
 from django import forms as django_forms
 
-from batchupload import forms, views, parsers
+from batchform import forms, views, parsers
 
 
 class CSVUploadForm(forms.BaseUploadForm):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Django settings for dev project.
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
@@ -121,7 +122,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'batchupload',
+    'batchform',
 )
 
 # A sample logging configuration. The only tangible logging
