@@ -30,7 +30,7 @@ ensure you have Django in your repository, and run::
 Links
 =====
 
-- Package on PyPI (TODO): http://pypi.python.org/pypi/django-batchform/
+- Package on PyPI: http://pypi.python.org/pypi/django-batchform/
 - Source code on Github: https://github.com/rbarrois/django-batchform/
 - Doc on ReadTheDocs: (TODO)
 - Continuous integration on Travis-CI (TODO)
