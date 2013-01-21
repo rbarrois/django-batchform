@@ -2,22 +2,17 @@
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
 
-from django import forms as django_forms
+from django import forms
 
-from batchform import forms, views, parsers
-
-
-class CSVUploadForm(forms.BaseUploadForm):
-    parsers = (parsers.CSVParser(),)
+from batchform import views
 
 
-class LineForm(django_forms.Form):
-    cola = django_forms.CharField(max_length=10)
-    colb = django_forms.CharField(max_length=10)
-    colc = django_forms.CharField(max_length=10)
+class LineForm(forms.Form):
+    cola = forms.CharField(max_length=10)
+    colb = forms.CharField(max_length=10)
+    colc = forms.CharField(max_length=10, required=True)
 
 
 class CSVUploadView(views.BaseUploadView):
-    upload_form_class = CSVUploadForm
-    lines_form_class = LineForm
+    inner_form_class = LineForm
     columns = ('cola', 'colb', 'colc')
