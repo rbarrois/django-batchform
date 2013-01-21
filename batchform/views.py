@@ -50,7 +50,7 @@ class BaseUploadView(generic.FormView):
     # post() -> get_form(get_form_class()).is_valid() -> form_valid() / form_invalid()
 
     def post(self, request, *args, **kwargs):
-        if request.POST['global_step'] not in (self.STEP_LINES, self.STEP_UPLOAD):
+        if request.POST.get('global_step') not in (self.STEP_LINES, self.STEP_UPLOAD):
             raise django_forms.ValidationError(u"Invalid request.")
         self.current_step = request.POST['global_step']
         return super(BaseUploadView, self).post(request, *args, **kwargs)
