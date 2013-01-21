@@ -1,37 +1,48 @@
+{% extends "batchform/base.html" %}
+{% load i18n staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "batchform/css/batchform.css" %}" type="text/css" />
+{% endblock css %}
+
+{% block content %}
 <form method="post" action="">
-    {# Hidden data #}
-    <input type="hidden" name="global_step" value="{{ global_step }}" />
-    {% csrf_token %}
-    {{ form.management_form }}
-    {# End hidden data #}
+  {# Hidden data #}
+  <input type="hidden" name="global_step" value="{{ global_step }}" />
+  {% csrf_token %}
+  {{ form.management_form }}
+  {# End hidden data #}
 
-    {% if form.non_form_errors %}
-        <span class="error">{{ form.non_form_errors }}</span>
-    {% endif %}
+  {% if form.non_form_errors %}
+    {{ form.non_form_errors }}
+  {% endif %}
 
-    <table>
-        <tr>
-            {% for field in form.form.visible_fields %}
-                <th>{{ field.label_tag }}</th>
-            {% endfor %}
+  <table class="form">
+    <tr class="batchform-line-header">
+      {% for field in form.form.visible_fields %}
+      <th>{{ field.label_tag }}</th>
+      {% endfor %}
 
-            {% if form.can_delete %}
-                <td>Delete?</td>
-            {% endif %}
-        </tr>
+      {% if form.can_delete %}
+      <th>{% trans "Exclude?" %}</td>
+      {% endif %}
+    </tr>
 
-        {% for inner_form in form %}
-        <tr>
-            {% for field in inner_form.visible_fields %}
-            <td>{{ field }}{{ field.errors }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
+    {% for inner_form in form %}
+    <tr class="batchform-line">
+      {% for field in inner_form.visible_fields %}
+      <td>{{ field }}{{ field.errors }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
 
-        <tr>
-            <td colspan="{{ form.form.visible_fields|length }}">
-                <input type="submit" value="Insert" />
-            </td>
-        </tr>
-    </table>
+    <tr>
+      <td class="submit" colspan="{{ form.form.visible_fields|length }}">
+        <input type="submit" value="{% trans "Insert" %}" />
+      </td>
+    </tr>
+  </table>
 </form>
+
+{% endblock %}

@@ -1,16 +1,22 @@
+{% extends "batchform/base.html" %}
+
+{% block content %}
+
 <form enctype="multipart/form-data" method="post" action="">
-    <input type="hidden" name="global_step" value="{{ global_step }}" />
-    <table>
-        {% csrf_token %}
-        {{ form.as_table }}
-        <tr>
-            <td colspan="2">
-                {% if global_step == "upload" %}
-                    <input type="submit" value="Upload" />
-                {% else %}
-                    <input type="submit" value="Insert" />
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+  <input type="hidden" name="global_step" value="{{ global_step }}" />
+  <table>
+    {% csrf_token %}
+    {{ form.as_table }}
+    <tr>
+      <td colspan="2">
+        {% if global_step == "upload" %}
+        <input type="submit" value="Upload" />
+        {% else %}
+        <input type="submit" value="Insert" />
+        {% endif %}
+      </td>
+    </tr>
+  </table>
 </form>
+
+{% endblock content %}

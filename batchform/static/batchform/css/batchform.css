@@ -1,0 +1,6 @@
+table.form { border-collapse: collapse; }
+tr.batchform-line-header th { border: solid 1px black }
+tr.batchform-line td { border: solid 1px black; }
+tr.batchform-line td { vertical-align: top; }
+tr.batchform-line ul.errorlist { margin: 0px; padding: 0px; }
+td.submit { text-align: center; }
