@@ -16,3 +16,4 @@ class LineForm(forms.Form):
 class CSVUploadView(views.BaseUploadView):
     inner_form_class = LineForm
     columns = ('cola', 'colb', 'colc')
+    success_url = '/'
