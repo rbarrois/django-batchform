@@ -8,13 +8,13 @@ It uses Django class-based generic views to that effect, allowing for a very sim
 
 .. code-block:: python
 
-    from django import forms as django_forms
-    from batchform import forms, views
+    from django import forms
+    from batchform import views
 
-    class LineForm(django_forms.Form):
-        col1 = django_forms.CharField(max_length=10)
-        col2 = django_forms.CharField(max_length=10)
-        col3 = django_forms.CharField(max_length=10)
+    class LineForm(forms.Form):
+        col1 = forms.CharField(max_length=10)
+        col2 = forms.CharField(max_length=10)
+        col3 = forms.CharField(max_length=10)
 
     class BatchFormView(views.BaseUploadView):
         lines_form_class = LineForm
