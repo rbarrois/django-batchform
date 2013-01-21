@@ -1,6 +1,14 @@
 include LICENSE README
+
+# Package data
+recursive-include batchform *.html
+
+# Companion data
+recursive-include dev *.py
+recursive-include tests *.py
+
+# Doc
 include doc/Makefile doc/make.bat
 recursive-include doc *.py *.rst
 include doc/_static/.keep_dir
 prune doc/_build
-recursive-include tests *.py

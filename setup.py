@@ -35,7 +35,8 @@ setup(
     keywords=['django', 'form', 'batch', 'upload'],
     url="http://github.com/rbarrois/django-batchform",
     download_url="http://pypi.python.org/pypi/django-batchform/",
-    packages=find_packages(),
+    packages=['batchform'],
+    include_package_data=True,
     setup_requires=[
         'distribute',
     ],
