@@ -18,8 +18,8 @@ class BaseUploadView(generic.FormView):
     STEP_UPLOAD = 'upload'
     STEP_LINES = 'lines'
 
-    upload_form_class = None
-    lines_form_class = None
+    upload_form_class = forms.BaseUploadForm
+    inner_form_class = None
     lines_formset_class = forms.LineFormSet
     columns = ()
 
@@ -67,7 +67,7 @@ class BaseUploadView(generic.FormView):
     def get_form_kwargs(self):
         kwargs = super(BaseUploadView, self).get_form_kwargs()
         if self.current_step == self.STEP_LINES:
-            kwargs['form'] = self.lines_form_class
+            kwargs['form'] = self.inner_form_class
         return kwargs
 
     # Upload
@@ -78,11 +78,12 @@ class BaseUploadView(generic.FormView):
 
         lines = form.cleaned_data['file']
         initial_lines = [dict(zip(self.columns, line)) for line in lines]
-        lines_form = self.get_form(self.get_form_class(),
+        inner_form = self.get_form(self.get_form_class(),
             data=None,
             files=None,
-            initial=initial_lines)
-        return self.render_to_response(self.get_context_data(form=lines_form))
+            initial=initial_lines,
+        )
+        return self.render_to_response(self.get_context_data(form=inner_form))
 
     # Lines
     # =====

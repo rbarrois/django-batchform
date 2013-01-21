@@ -6,16 +6,19 @@
 from django import forms
 from django.forms import formsets
 
-from . import parsers as parsers_mod
+from . import parsers
+from .parsers import csv as csv_parsers
 
 
 class BaseUploadForm(forms.Form):
     file = forms.FileField()
 
-    parsers = ()
+    available_parsers = (
+        csv_parsers.AutoDialectCsvParser(),
+    )
 
     def get_parsers(self):
-        return self.parsers
+        return self.available_parsers
 
     def clean_file(self):
         """Analyse the uploaded file, and return the parsed lines.
@@ -25,17 +28,17 @@ class BaseUploadForm(forms.Form):
         """
         data = self.cleaned_data['file']
 
-        parsers = self.get_parsers()
+        available_parsers = self.get_parsers()
 
-        for parser in parsers:
+        for parser in available_parsers:
             try:
                 return parser.parse_file(data)
-            except parsers_mod.ParserError:
+            except parsers.ParserError:
                 pass
 
         raise forms.ValidationError(
             u"No parser could read the file. Tried with parsers %s." %
-            (u", " % (unicode(p) for p in parsers)))
+            (u", " % (unicode(p) for p in available_parsers)))
 
 
 class LineFormSet(formsets.BaseFormSet):
