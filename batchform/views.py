@@ -6,6 +6,7 @@
 from django import forms as django_forms
 from django import http
 from django.contrib import messages
+from django.forms import formsets
 from django.views import generic
 
 from . import forms
@@ -61,18 +62,22 @@ class BaseUploadView(generic.FormView):
         else:
             return self.form_lines_valid(form)
 
+    def get_lines_formset_class(self):
+        """Return the class of the lines formset."""
+        return self.lines_formset_class
+
+    def get_inner_form_class(self):
+        return self.inner_form_class
+
     def get_form_class(self):
         if self.current_step == self.STEP_UPLOAD:
             return self.upload_form_class
         else:
-            return self.lines_formset_class
-
-    def get_form_kwargs(self):
-        kwargs = super(BaseUploadView, self).get_form_kwargs()
-        if self.current_step == self.STEP_LINES:
-            # Pass in the inner_form_class to the formset.
-            kwargs['form'] = self.inner_form_class
-        return kwargs
+            lines_formset_class = self.get_lines_formset_class()
+            inner_form_class = self.get_inner_form_class()
+            return formsets.formset_factory(
+                inner_form_class, formset=lines_formset_class,
+                can_delete=lines_formset_class.can_delete)
 
     def get_template_names(self):
         if self.current_step == self.STEP_UPLOAD:
@@ -83,12 +88,16 @@ class BaseUploadView(generic.FormView):
     # Upload
     # ======
 
+    def get_columns(self):
+        """Return the columns of the form."""
+        return self.columns
+
     def form_upload_valid(self, form):
         """Handle a valid upload form."""
         self.current_step = self.STEP_LINES
 
         lines = form.cleaned_data['file']
-        initial_lines = [dict(zip(self.columns, line)) for line in lines]
+        initial_lines = [dict(zip(self.get_columns(), line)) for line in lines]
         inner_form = self.get_form(self.get_form_class(),
             data=None,
             files=None,
@@ -107,12 +116,16 @@ class BaseUploadView(generic.FormView):
         """Handle a valid LineFormSet."""
         handled = 0
         for inner_form in form:
-            if not inner_form.cleaned_data.get('DELETE'):
+            if not inner_form.cleaned_data.get(formsets.DELETION_FIELD_NAME):
                 handled += 1
                 self.handle_inner_form(inner_form)
 
-        messages.success(self.request, u"%d lines handled" % handled)
+        self.log_and_notify_lines(handled)
         return http.HttpResponseRedirect(self.get_success_url())
+
+    def log_and_notify_lines(self, handled):
+        """Called when all the lines where successfully handled."""
+        messages.success(self.request, u"%d lines handled" % handled)
 
 
 class FormSavingUploadView(BaseUploadView):

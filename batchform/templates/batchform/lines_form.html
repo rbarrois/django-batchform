@@ -23,10 +23,6 @@
       {% for field in form.form.visible_fields %}
       <th>{{ field.label_tag }}</th>
       {% endfor %}
-
-      {% if form.can_delete %}
-      <th>{% trans "Exclude?" %}</td>
-      {% endif %}
     </tr>
 
     {% for inner_form in form %}

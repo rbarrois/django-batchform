@@ -42,7 +42,6 @@ class BaseUploadForm(forms.Form):
 
 
 class LineFormSet(formsets.BaseFormSet):
-    form = None
     can_order = False
     can_delete = True
     extra = 0
@@ -51,7 +50,6 @@ class LineFormSet(formsets.BaseFormSet):
     unique_fields = ()
 
     def __init__(self, *args, **kwargs):
-        self.form = kwargs.pop('form', None) or self.form
         if 'initial' in kwargs:
             self.max_num = len(kwargs['initial'])
         super(LineFormSet, self).__init__(*args, **kwargs)
