@@ -4,4 +4,4 @@
 
 
 __author__ = "Raphaël Barrois <raphael.barrois+batchform@polytechnique.org>"
-__version__ = '0.1.0'
+__version__ = '0.2.0'
