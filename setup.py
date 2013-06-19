@@ -3,9 +3,11 @@
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
 
-from setuptools import setup, find_packages
 import os
 import re
+import sys
+from distutils.core import setup
+from distutils import cmd
 
 root_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -37,9 +39,7 @@ setup(
     download_url="http://pypi.python.org/pypi/django-batchform/",
     packages=['batchform'],
     include_package_data=True,
-    setup_requires=[
-        'distribute',
-    ],
+    requires=['Django(>=1.3)'],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -48,6 +48,5 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
-    test_suite='tests',
 )
 
