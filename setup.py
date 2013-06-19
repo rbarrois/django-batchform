@@ -37,8 +37,17 @@ setup(
     keywords=['django', 'form', 'batch', 'upload'],
     url="http://github.com/rbarrois/django-batchform",
     download_url="http://pypi.python.org/pypi/django-batchform/",
-    packages=['batchform', 'batchform.parsers', 'batchform.static', 'batchform.templates'],
-    include_package_data=True,
+    packages=[
+        'batchform',
+        'batchform.parsers',
+    ],
+    package_data={
+        'batchform': [
+            'static/batchform/css/*.css',
+            'static/batchform/js/*.js',
+            'templates/batchform/*.html',
+        ],
+    },
     requires=['Django(>=1.3)'],
     classifiers=[
         "Development Status :: 4 - Beta",
