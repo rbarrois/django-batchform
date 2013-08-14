@@ -5,9 +5,8 @@
 
 import os
 import re
-import sys
-from distutils.core import setup
-from distutils import cmd
+
+from setuptools import setup
 
 root_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -24,7 +23,13 @@ def get_version(package_name):
     return '0.1.0'
 
 
+def parse_requirements(requirements_file):
+    with open(requirements_file, 'r') as f:
+        return [line for line in f if line.strip() and not line.startswith('#')]
+
+
 PACKAGE = 'batchform'
+REQUIREMENTS_PATH = 'requirements.txt'
 
 
 setup(
@@ -48,7 +53,10 @@ setup(
             'templates/batchform/*.html',
         ],
     },
-    requires=['Django(>=1.3)'],
+    setup_requires=[
+        'setuptools>=0.8',
+    ],
+    install_requires=parse_requirements(REQUIREMENTS_PATH),
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
