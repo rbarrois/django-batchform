@@ -2,6 +2,8 @@
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
 
+from __future__ import unicode_literals
+
 import os.path
 
 
@@ -60,7 +62,7 @@ class LinesTestCase(BaseTestCase):
         })
 
         self.assertRedirects(response, '/')
-        self.assertIn(u"3 lines", response.cookies['messages'].value)
+        self.assertIn("3 lines", response.cookies['messages'].value)
 
     def test_incomplete_form(self):
         response = self.client.post('/', {
@@ -84,7 +86,7 @@ class LinesTestCase(BaseTestCase):
         self.assertContains(response, 'foo')
         self.assertContains(response, 'bar')
         self.assertContains(response, 'blih')
-        self.assertContains(response, u"required")
+        self.assertContains(response, "required")
 
     def test_lines_form_with_deleted(self):
         response = self.client.post('/', {
@@ -105,4 +107,4 @@ class LinesTestCase(BaseTestCase):
         })
 
         self.assertRedirects(response, '/')
-        self.assertIn(u"2 lines", response.cookies['messages'].value)
+        self.assertIn("2 lines", response.cookies['messages'].value)

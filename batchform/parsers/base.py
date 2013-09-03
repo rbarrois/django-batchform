@@ -3,6 +3,9 @@
 # Copyright (c) 2013 Raphaël Barrois
 
 
+from __future__ import unicode_literals
+
+
 class ParserError(Exception):
     """Raised for all parser-related errors."""
 
@@ -17,4 +20,4 @@ class BaseParser(object):
 
     def parse_file(self, file_obj):
         """Parse a file data (the raw file object)."""
-        raise ParserError(u"Unable to parse file.")
+        raise ParserError("Unable to parse file.")

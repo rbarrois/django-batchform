@@ -2,9 +2,11 @@
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
 
+from __future__ import unicode_literals
 
 from django import forms
 from django.forms import formsets
+from django.utils.encoding import force_text
 
 from . import parsers
 from .parsers import csv as csv_parsers
@@ -37,8 +39,8 @@ class BaseUploadForm(forms.Form):
                 pass
 
         raise forms.ValidationError(
-            u"No parser could read the file. Tried with parsers %s." %
-            (u", " % (unicode(p) for p in available_parsers)))
+            "No parser could read the file. Tried with parsers %s." %
+            (", " % (force_text(p) for p in available_parsers)))
 
 
 class LineFormSet(formsets.BaseFormSet):
@@ -75,11 +77,11 @@ class LineFormSet(formsets.BaseFormSet):
         for form in self.forms:
             key = tuple(form.cleaned_data[field] for field in self.unique_fields)
             if key in keys:
-                duplicates.append(u",".join(key))
+                duplicates.append(",".join(key))
             else:
                 keys.add(key)
 
         if duplicates:
             raise forms.ValidationError(
-                u"Fields %s should be unique; found duplicates for %s" % (
-                    u','.join(self.unique_fields), duplicates))
+                "Fields %s should be unique; found duplicates for %s" % (
+                    ','.join(self.unique_fields), duplicates))

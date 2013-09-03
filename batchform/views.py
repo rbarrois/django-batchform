@@ -2,6 +2,8 @@
 # This code is distributed under the two-clause BSD license.
 # Copyright (c) 2013 Raphaël Barrois
 
+from __future__ import unicode_literals
+
 
 from django import forms as django_forms
 from django import http
@@ -52,7 +54,7 @@ class BaseUploadView(generic.FormView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('global_step') not in (self.STEP_LINES, self.STEP_UPLOAD):
-            raise django_forms.ValidationError(u"Invalid request.")
+            raise django_forms.ValidationError("Invalid request.")
         self.current_step = request.POST['global_step']
         return super(BaseUploadView, self).post(request, *args, **kwargs)
 
@@ -125,7 +127,7 @@ class BaseUploadView(generic.FormView):
 
     def log_and_notify_lines(self, handled):
         """Called when all the lines where successfully handled."""
-        messages.success(self.request, u"%d lines handled" % handled)
+        messages.success(self.request, "%d lines handled" % handled)
 
 
 class FormSavingUploadView(BaseUploadView):
