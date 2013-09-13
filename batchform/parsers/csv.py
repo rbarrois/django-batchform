@@ -66,7 +66,6 @@ class DialectCsvParser(BaseCsvParser):
 
 class AutoDialectCsvParser(DialectCsvParser):
     def get_dialect(self, file_obj):
-        file_obj.open('U')
         dialect = csv.Sniffer().sniff(file_obj.read(1024))
         file_obj.seek(0)
         return dialect
