@@ -36,12 +36,13 @@ class BaseCsvParser(base.BaseParser):
     def reopen(self, file_obj):
         """Reopen the file-like object in a safe manner."""
         if sys.version_info[0] <= 2:
-            return file_obj.open('U')
+            file_obj.open('U')
+            return file_obj
         else:
             return codecs.getreader('utf-8')(file_obj.open('U'))
 
     def parse_file(self, file_obj):
-        self.reopen(file_obj)
+        file_obj = self.reopen(file_obj)
         reader_kwargs = self.get_reader_kwargs(file_obj)
 
         reader = csv.reader(file_obj, **reader_kwargs)
