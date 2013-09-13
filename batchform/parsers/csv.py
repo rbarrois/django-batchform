@@ -21,6 +21,7 @@ Alternately:
 from __future__ import absolute_import
 
 
+import codecs
 import csv
 import sys
 
@@ -37,7 +38,7 @@ class BaseCsvParser(base.BaseParser):
         if sys.version_info[0] <= 2:
             return file_obj.open('U')
         else:
-            return file_obj.open('U', encoding='utf-8')
+            return codecs.getreader('utf-8')(file_obj.open('U'))
 
     def parse_file(self, file_obj):
         self.reopen(file_obj)
