@@ -30,7 +30,7 @@ class UploadTestCase(BaseTestCase):
         self.assertTemplateUsed(response, 'batchform/upload_form.html')
 
     def test_uploaded_file(self):
-        with self.open_data('example.csv') as f:
+        with self.open_data('example.csv', 'rb') as f:
             response = self.client.post('/', {'file': f, 'global_step': 'upload'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'batchform/lines_form.html')
@@ -38,7 +38,7 @@ class UploadTestCase(BaseTestCase):
         self.assertContains(response, "bar")
 
     def test_missing_global_step(self):
-        with self.open_data('example.csv') as f:
+        with self.open_data('example.csv', 'rb') as f:
             self.assertRaises(forms.ValidationError, self.client.post,
                 '/', {'file': f})
 
