@@ -3,8 +3,8 @@ python:
   - "2.6"
   - "2.7"
 env:
-  - DJANGO_VERSION=1.4.1
-  - DJANGO_VERSION=1.5.1
+  - DJANGO_VERSION=1.4.7
+  - DJANGO_VERSION=1.5.3
 script: "python manage.py test batchform"
 install:
   - if [[ $TRAVIS_PYTHON_VERSION = 2.6 ]]; then pip install unittest2 --use-mirrors; fi
