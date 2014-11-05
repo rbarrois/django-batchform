@@ -3,4 +3,4 @@
 # Copyright (c) 2013 Raphaël Barrois
 
 
-from .views import *
+from .test_views import *
