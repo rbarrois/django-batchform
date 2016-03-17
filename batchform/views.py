@@ -36,7 +36,9 @@ class BaseUploadView(generic.FormView):
     # Overrides
     # =========
 
-    def get_form(self, form_class, **extra):
+    def get_form(self, form_class=None, **extra):
+        if form_class is None:
+            form_class = self.get_form_class()
         kwargs = self.get_form_kwargs()
         kwargs.update(extra)
         return form_class(**kwargs)
