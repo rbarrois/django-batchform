@@ -9,9 +9,16 @@ import os.path
 
 from django import forms
 from django.test import TestCase
+import django.contrib.messages.storage.cookie as cookie_storage
 
 
 data_dir = os.path.join(os.path.dirname(__file__), 'data')
+
+
+def decode_cookie_messages(cookie):
+    """Decode a cookie encoded by CookieStorage
+    """
+    return cookie_storage.CookieStorage(request=None)._decode(cookie)
 
 
 class BaseTestCase(TestCase):
@@ -62,7 +69,7 @@ class LinesTestCase(BaseTestCase):
         })
 
         self.assertRedirects(response, '/')
-        self.assertIn("3 lines", response.cookies['messages'].value)
+        self.assertIn("3 lines", decode_cookie_messages(response.cookies['messages'].value)[0].message)
 
     def test_incomplete_form(self):
         response = self.client.post('/', {
@@ -107,4 +114,4 @@ class LinesTestCase(BaseTestCase):
         })
 
         self.assertRedirects(response, '/')
-        self.assertIn("2 lines", response.cookies['messages'].value)
+        self.assertIn("2 lines", decode_cookie_messages(response.cookies['messages'].value)[0].message)

@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.forms import formsets
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from . import parsers
 from .parsers import csv as csv_parsers
@@ -40,7 +40,7 @@ class BaseUploadForm(forms.Form):
 
         raise forms.ValidationError(
             "No parser could read the file. Tried with parsers %s." %
-            (", " % (force_text(p) for p in available_parsers)))
+            (", " % (force_str(p) for p in available_parsers)))
 
 
 class LineFormSet(formsets.BaseFormSet):

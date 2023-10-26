@@ -1,11 +1,12 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
+  - "3.9"
+  - "3.10"
+  - "3.11"
 env:
-  - DJANGO_VERSION=1.7.11
-  - DJANGO_VERSION=1.8.10
-  - DJANGO_VERSION=1.9.4
+  - DJANGO_VERSION=3.2.23
+  - DJANGO_VERSION=4.1.13
+  - DJANGO_VERSION=4.2.8
 script: "python manage.py test batchform"
 install:
   - pip install Django==$DJANGO_VERSION --quiet --use-mirrors

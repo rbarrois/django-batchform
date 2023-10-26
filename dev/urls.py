@@ -3,10 +3,10 @@
 # Copyright (c) 2013 Raphaël Barrois
 
 
-from django.conf.urls import patterns, include, url
+from django.urls import path
 
 from . import views
 
-urlpatterns = patterns('',
-    url(r'^$', views.CSVUploadView.as_view(), name='example'),
-)
+urlpatterns = [
+    path('', views.CSVUploadView.as_view(), name='example'),
+]
